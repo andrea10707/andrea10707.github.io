@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+:root{
+    --margin-size: 3px;
+}
+.div1 {
+  background: red;
+  height: 71px;
+  width: 100%;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.div2 {
+  background: yellow;
+  float: left;
+  height: calc(80% - var(--margin-size)* 2);
+width: calc(20% - var(--margin-size)* 2);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.div3 {
+  background: green;
+  width: calc(60% - var(--margin-size)* 2);
+  height: calc(80% - var(--margin-size)* 2);
+  margin: 5px;
+  float:left;
+  margin-bottom: 5px;
+  margin: var(--margin-size);
+}
+.div4{
+  background: yellow;
+  float: left;
+  height: calc(80% - var(--margin-size)* 2);
+width: calc(20% - var(--margin-size)* 2);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+.div5{
+    background-color: aqua;
+    clear: both;
+    height: 71px;
+    width: 100%;
+}
+img{
+    align-self: center;
+    margin-top: 15px;
+    margin-left: 15px;
+    float: left;
+}
+h1{
+    position: absolute;
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin-left: 13em;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+input{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.bob{
+    left: 60%;
+    width: 3%;
+}
+ul{
+    margin-top: 30px;
+    padding: 5px;
+    color: blue;
+}
+table{
+    background-color: brown;
+    align-items: center;
+}
+.b{
+    margin-top: 150px;
+}
+.Ban{
+    background-color: orange;
+    width: 50%;
+    height: 20px;
+    text-align: center;
+    margin-left: 25%;
+    margin-top: 4.5%;
+}
+.b1{
+    width: calc(100% / 3 - 10px);
+    margin: 5px;
+    height: 4em;
+    float: left;
+    text-align: center;
+    background-color: violet;
+    margin-top: 30px;
+}
+h2{
+   color: red;
+}
+.b2{
+    background-color: aquamarine;
+    color: yellow;
+    height: 50px;
+    width: 35%;
+}
+.b3{
+    background-color: blueviolet;
+    margin-top: 30px;
+}
+p{
+    display: block;
+    height: 20px;
+    width: 30%;
+    color: blue;
+}
+.b5{
+    margin-left: 75em;
+}
+</style>
+</head>
+<body>
+<div class="div1">
+    <div><img src="logo.jpg"></div>
+    <h1>HELLDIVERS</h1>
+    <input type="search">
+    <input class="bob" type="button" alt="search">
+</div>
+<div class="div2">
+    <ul>ARMI</ul>
+    <ul>STRATAGEMMI</ul>
+    <ul>NEMICI</ul>
+    <ul>PIANETI</ul>
+</div>
+<div class="div3">
+    <div class="Ban">
+        BANNER
+    </div>
+    <div class="b1">TITOLO 1</div>
+    <div class="b1">TITOLO 2</div>
+    <div class="b1">TITOLO 3</div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="b3">
+        <h2>SALUTO</h2>
+        <div class="b2">Benvenuto nella democrazia</div>
+    </div>
+    <div class="b3">
+        <h2>BATTUTA</h2>
+        <div class="b2">eccovi servita una tazza di liber-thè</div>
+    </div>
+</div>
+<div class="div4">
+    <table>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>16</td>
+            <td>17</td>
+            <td>18</td>
+            <td>19</td>
+            <td>20</td>
+            <td>21</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>23</td>
+            <td>24</td>
+            <td>25</td>
+            <td>26</td>
+            <td>27</td>
+            <td>28</td>
+        </tr>
+        <tr>
+            <td>29</td>
+            <td>30</td>
+            <td>31</td>
+        </tr>
+    </table>
+    <div class="b">
+        MENU:
+        <ol>pizza</ol>
+        <ol>carbonara</ol>
+        <ol>bistecca</ol>
+    </div>
+</div>
+<div class="div5">
+    <div><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores accusamus nobis voluptatibus voluptate facilis aliquam! Quis voluptatem repudiandae dignissimos. Eos, minus? Quidem quibusdam dolores consequatur quaerat magni quae eveniet harum?</p></div>
+    <div class="b5"><a href="https://www.youtube.com/watch?v=UQZ35YHKEUs">clicca qui per video motivazionale</a></div>
+</div>
+</body>
+</html>
