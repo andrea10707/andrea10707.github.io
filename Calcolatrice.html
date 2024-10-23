@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            input{
+                margin-left: 30px;
+                background-color: black;
+                color:white;
+            }
+            button{
+                float: left;
+                margin-right: 10px;
+                margin-left: 23px;
+            }
+            div{
+                border-color: gray;
+                border: solid;
+                width: 13%;
+                padding: auto;
+                background-color: gray;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            function somma(){
+                let x=parseInt(document.getElementById("var1").value);
+                let y=parseInt(document.getElementById("var2").value);
+                document.getElementById("risultato").value= x+y;
+            }
+            function sottrazione(){
+                let x=parseInt(document.getElementById("var1").value);
+                let y=parseInt(document.getElementById("var2").value);
+                document.getElementById("risultato").value= x-y;
+            }
+            function moltiplicazione(){
+                let x=parseInt(document.getElementById("var1").value);
+                let y=parseInt(document.getElementById("var2").value);
+                document.getElementById("risultato").value= x*y;
+            }
+            function divisione(){
+                let x=parseInt(document.getElementById("var1").value);
+                let y=parseInt(document.getElementById("var2").value);
+                document.getElementById("risultato").value= x/y;
+            }
+        </script>
+        <div>
+            <input type="text" id="var1"></input>
+            <br>
+            <br>
+            <input type="text" id="var2"></input>
+            <br>
+            <br>
+            <button onclick="somma()">+</button>
+            <button onclick="sottrazione()">-</button>
+            <button onclick="moltiplicazione()">*</button>
+            <button onclick="divisione()">/</button>
+            <br>
+            <br>
+            <input type="text" id="risultato"></input>
+        </div>
+    </body>
+    </html>

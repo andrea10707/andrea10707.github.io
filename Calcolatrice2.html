@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            input{
+                background-color: black;
+                color:white;
+            }
+            button{
+                float: left;
+                margin-top: 10px;
+                margin-right: 10px;
+                margin-left: 23px;
+            }
+            div{
+                height: 200px;
+                border-color: gray;
+                border: solid;
+                width: 13%;
+                padding: auto;
+                background-color: gray;
+            }
+            #var1{
+                margin-top: 20px;
+            }
+            #risultato{
+                margin-top: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            var x;
+            var y;           
+            function somma(){
+                x=parseInt(document.getElementById("var1").value);
+                y= "+";
+                document.getElementById("var1").value="";
+            }
+            function sottrazione(){
+                x=parseInt(document.getElementById("var1").value);
+                y="-";
+                document.getElementById("var1").value="";
+            }
+            function moltiplicazione(){
+                x=parseInt(document.getElementById("var1").value);
+                y= "*";
+                document.getElementById("var1").value="";
+            }
+            function divisione(){
+                x=parseInt(document.getElementById("var1").value);
+                y= "/";
+                document.getElementById("var1").value="";
+            }
+            
+            function risultato() {
+               switch(y){
+                    case '+':
+                        document.getElementById("risultato").value=x+parseInt(document.getElementById("var1").value);
+                        document.getElementById("var1").value="";
+                        break;
+                    case '-':
+                        document.getElementById("risultato").value=x-parseInt(document.getElementById("var1").value);
+                        document.getElementById("var1").value="";
+                        break;
+                    case '*':
+                        document.getElementById("risultato").value=x*parseInt(document.getElementById("var1").value);
+                        document.getElementById("var1").value="";
+                        break;
+                    case '/':
+                        document.getElementById("risultato").value=x/parseInt(document.getElementById("var1").value);
+                        document.getElementById("var1").value="";
+                        break;
+               }
+            }
+        </script>
+        <div>
+            <input type="text" id="var1"></input>
+            <br>
+            <br>
+            <button onclick="somma()">+</button>
+            <button onclick="sottrazione()">-</button>
+            <button onclick="moltiplicazione()">*</button>
+            <button onclick="divisione()">/</button>
+            <button onclick="risultato()">=</button>
+            <br>
+            <br>
+            <input type="text" id="risultato"></input>
+        </div>
+    </body>
+    </html>
