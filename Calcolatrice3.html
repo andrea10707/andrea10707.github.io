@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            p {
+                margin: 25px 10px 0 10px;
+                background-color: black;
+                color:white;
+                text-align: right;
+                padding: .5em;
+            }
+            button{
+                float: left;
+                margin-right: 10px;
+                margin-left: 25px;
+            }
+            div{
+                border-color: gray;
+                border: solid;
+                width: fit-content;
+                padding: auto;
+                background-color: gray;
+                height: 320px;
+            }
+            #zero{
+                margin-left: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <p id="espressione">0</p>
+            <br>
+            <br>
+            <button onclick='bottoneNumero(9)' id="numero">9</button>
+            <button onclick='bottoneNumero(8)'>8</button>
+            <button onclick='bottoneNumero(7)'>7</button>
+            <br>
+            <br>
+            <button onclick='bottoneNumero(6)'>6</button>
+            <button onclick='bottoneNumero(5)'>5</button>
+            <button onclick='bottoneNumero(4)'>4</button>
+            <br>
+            <br>
+            <button onclick='bottoneNumero(3)'>3</button>
+            <button onclick='bottoneNumero(2)'>2</button>
+            <button onclick='bottoneNumero(1)'>1</button>
+            <br>
+            <br>
+            <button id="zero" onclick='bottoneNumero(0)'>0</button>
+            <br>
+            <br>
+            <button onclick="somma()">+</button>
+            <button onclick="sottrazione()">-</button>
+            <button onclick="moltiplicazione()">*</button>
+            <button onclick="divisione()">/</button>
+            <br>
+            <br>
+            <button onclick="esegui()">=</button>
+            <button onclick="pulisci()">AC</button>
+        </div>
+        <script>
+            var elementoDisplay = document.getElementById("espressione");
+
+            var display = "";
+            var buffer = null;
+            var operazione = null;
+            var displayRisultato = false;
+            
+            function bottoneNumero(num) {
+                if (displayRisultato) {
+                    display = "";
+                    displayRisultato = false;
+                }
+                display += num;
+                scriviDisplay()
+            }
+
+            function registraDisplay() {
+                buffer = display;
+                display = "";
+                scriviDisplay()
+            }
+
+            function somma(){
+                if (buffer == null) registraDisplay();
+                else esegui();
+                operazione = "+";
+            }
+
+            function sottrazione(){
+                if (buffer == null) registraDisplay();
+                else esegui();
+                operazione = "-";
+            }
+
+            function moltiplicazione(){
+                if (buffer == null) registraDisplay();
+                else esegui();
+                operazione = "*";
+            }
+
+            function divisione(){
+                if (buffer == null) registraDisplay();
+                else esegui();
+                operazione = "/";
+            }
+
+            function esegui() {
+                if (buffer == null || operazione == null) return;
+                if (!displayRisultato && display == "") return;
+                var risultato;
+                switch (operazione) {
+                    case "+":
+                        risultato = parseFloat(buffer) + parseFloat(display);
+                        break;
+                    case "-":
+                        risultato = parseFloat(buffer) - parseFloat(display);
+                        break;
+                    case "*":
+                        risultato = parseFloat(buffer) * parseFloat(display);
+                        break;
+                    case "/":
+                        risultato = parseFloat(buffer) / parseFloat(display);
+                        break;
+                }
+
+                display = "" + risultato;
+                operazione = null;
+                displayRisultato = true;
+                scriviDisplay()
+                buffer = risultato;
+            }
+
+            function pulisci() {
+                buffer = null;
+                operazione = null;
+                displayRisultato = false;
+                display = "";
+                scriviDisplay()
+            }
+
+            function scriviDisplay() {
+                if (display == "") elementoDisplay.innerHTML = "0";
+                else elementoDisplay.innerHTML = display;
+            }
+        </script>
+    </body>
+    </html>
