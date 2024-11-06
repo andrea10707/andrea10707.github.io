@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserimento Dati Anagrafici</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Input fields without labels -->
+    <input type="text" id="nome" placeholder="Nome" />
+    <input type="text" id="cognome" placeholder="Cognome" />
+    <input type="text" id="indirizzo" placeholder="Indirizzo" />
+    <input type="text" id="citta" placeholder="Città" />
+    <input type="email" id="email" placeholder="Email" />
+    <input type="text" id="codice_fiscale" placeholder="Codice Fiscale" />
+    
+    <button id="okButton">OK</button>
+    
+    <h3>Dati Inseriti</h3>
+    <table id="datiTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Indirizzo</th>
+                <th>Città</th>
+                <th>Email</th>
+                <th>Codice Fiscale</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- I dati verranno aggiunti qui -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Array per memorizzare i dati
+    const datiAnagrafici = [];
+
+    // Funzione per aggiungere una riga alla tabella
+    function aggiungiDati() {
+        // Prendi i dati dagli input
+        let nome = document.getElementById("nome").value;
+        let cognome = document.getElementById("cognome").value;
+        let indirizzo = document.getElementById("indirizzo").value;
+        let citta = document.getElementById("citta").value;
+        let email = document.getElementById("email").value;
+        let codiceFiscale = document.getElementById("codice_fiscale").value;
+        // Aggiungi i dati all'array
+        let nuovoDato = { nome, cognome, indirizzo, citta, email, codiceFiscale };
+        datiAnagrafici.push(nuovoDato);
+
+        // Aggiungi i dati alla tabella
+        let tableBody = document.getElementById("datiTable").getElementsByTagName("tbody")[0];
+        let newRow = tableBody.insertRow(tableBody.rows.length);
+
+        // Aggiungi celle alla nuova riga
+        newRow.insertCell(0).textContent = nome;
+        newRow.insertCell(1).textContent = cognome;
+        newRow.insertCell(2).textContent = indirizzo;
+        newRow.insertCell(3).textContent = citta;
+        newRow.insertCell(4).textContent = email;
+        newRow.insertCell(5).textContent = codiceFiscale;
+
+        // Pulisci i campi di input
+        document.getElementById("nome").value = "";
+        document.getElementById("cognome").value = "";
+        document.getElementById("indirizzo").value = "";
+        document.getElementById("citta").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("codice_fiscale").value = "";
+    }
+
+    // Aggiungi l'evento click al tasto OK
+    document.getElementById("okButton").addEventListener("click", aggiungiDati);
+</script>
+
+</body>
+</html>
