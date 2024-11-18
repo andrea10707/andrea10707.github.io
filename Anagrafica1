@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Dati Anagrafici</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Gestione Dati Anagrafici</h1>
+
+<div>
+    <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome">
+    </div>
+    <div class="form-group">
+        <label for="cognome">Cognome:</label>
+        <input type="text" id="cognome">
+    </div>
+    <div class="form-group">
+        <label for="indirizzo">Indirizzo:</label>
+        <input type="text" id="indirizzo">
+    </div>
+    <div class="form-group">
+        <label for="citta">Città:</label>
+        <input type="text" id="citta">
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email">
+    </div>
+    <div class="form-group">
+        <label for="codiceFiscale">Codice Fiscale:</label>
+        <input type="text" id="codiceFiscale">
+    </div>
+    <button onclick="aggiungiDati()">OK</button>
+</div>
+
+<table id="tabellaDati">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Indirizzo</th>
+            <th>Città</th>
+            <th>Email</th>
+            <th>Codice Fiscale</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Le righe saranno aggiunte qui dinamicamente -->
+    </tbody>
+</table>
+
+<script>
+    // Funzione per aggiungere i dati alla tabella
+    function aggiungiDati() {
+        // Ottieni i valori dagli input
+        const nome = document.getElementById('nome').value;
+        const cognome = document.getElementById('cognome').value;
+        const indirizzo = document.getElementById('indirizzo').value;
+        const citta = document.getElementById('citta').value;
+        const email = document.getElementById('email').value;
+        const codiceFiscale = document.getElementById('codiceFiscale').value;
+
+        // Verifica che tutti i campi siano compilati
+        if (!nome || !cognome || !indirizzo || !citta || !email || !codiceFiscale) {
+            alert("Per favore, compila tutti i campi!");
+            return;
+        }
+
+        // Crea una nuova riga nella tabella
+        const tabella = document.getElementById('tabellaDati').getElementsByTagName('tbody')[0];
+        const nuovaRiga = tabella.insertRow();
+
+        // Aggiungi le celle con i dati
+        nuovaRiga.insertCell(0).innerText = nome;
+        nuovaRiga.insertCell(1).innerText = cognome;
+        nuovaRiga.insertCell(2).innerText = indirizzo;
+        nuovaRiga.insertCell(3).innerText = citta;
+        nuovaRiga.insertCell(4).innerText = email;
+        nuovaRiga.insertCell(5).innerText = codiceFiscale;
+
+        // Resetta i campi del form
+        document.getElementById('nome').value = '';
+        document.getElementById('cognome').value = '';
+        document.getElementById('indirizzo').value = '';
+        document.getElementById('citta').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('codiceFiscale').value = '';
+    }
+</script>
+
+</body>
+</html>
