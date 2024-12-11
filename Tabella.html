@@ -1,0 +1,33 @@
+<html>
+ <head>
+	<script>
+		function apri(input){
+			let file = input.files[0];
+
+  			let reader = new FileReader();
+
+  			reader.readAsText(file);
+
+  			reader.onload = function() {
+    			// Leggi il contenuto come testo
+    			let content = reader.result;
+
+    			// Usa il metodo split per dividere il contenuto in base alla nuova riga
+    			let lines = content.split('\n');
+
+    			// Crea una stringa per visualizzare le linee del file
+    			let formattedContent = lines.join('<br>'); // Aggiungi <br> per ogni nuova riga
+
+    			// Mostra il contenuto formattato
+    			document.getElementById("contenuto").innerHTML = formattedContent;
+  			};
+		};
+	</script>
+ </head>
+ <body>
+
+	<input type="file" id="myfile" name="seleziona file" onchange="apri(this)">
+	<p id="contenuto"></p>
+
+ </body>
+</html>
