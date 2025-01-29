@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizzatore di File</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 800px;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    input[type="file"] {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: green;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 300px;
+      display: block;
+      margin: 0 auto;
+    }
+    input[type="file"]:hover {
+      background-color: green;
+    }
+    #contenuto {
+      font-family: monospace, Courier, sans-serif;
+      color: gray;
+      background-color: white;
+      border: 1px solid white;
+      padding: 20px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <body>
+    <input type="file" id="myfile" name="seleziona file" onchange="apri(this)">
+      <table id="noice"></table>
+      <canvas id="grafico" style="width:100%;max-width:600px"></canvas>
+  </body>
+  <script>
+  function apri(input){
+    let table = document.getElementById("noice");
+    let file = input.files[0];
+    let reader = new FileReader();
+
+    let ctx;
+
+    reader.readAsText(file);
+    
+    reader.onload = function() {
+        let heading = true;
+        let tagEnd = "th>";
+        let tableContent = "";
+
+        const yValues = [];
+
+        for (let row of reader.result.split("\n")) {
+            tableContent += "<tr>";
+            let splitRow = row.split(",");
+            let yValue = Number(splitRow[1].substring(1,splitRow[1].length-1));
+            if (!isNaN(yValue)) yValues.push(yValue);
+            for (let cell of splitRow)
+                tableContent += `<${tagEnd}${cell.substring(1,cell.length-1)}</${tagEnd}`;
+            if (heading) {
+                tagEnd = "td>";
+                heading = false;
+            }
+            tableContent += "</tr>";
+        }
+        table.innerHTML = tableContent;
+        
+        const canvas = document.getElementById("grafico");
+        ctx = canvas.getContext("2d");
+        let width = canvas.width;
+        let height = canvas.height;
+
+        let spacingLeft = width/20;
+        let spacingBottom = height/20;
+        line(spacingLeft,0,spacingLeft,height-spacingBottom);
+        line(spacingLeft,height-spacingBottom,width,height-spacingBottom)
+        let max = yValues[0]
+        for (let i = 1; i < yValues.length; i++)
+          if (yValues[i] > max) max = yValues[i]
+        for (let i = 0; i < yValues.length - 1; i++)
+          line(getCoord(i, yValues.length-1, spacingLeft, width), height-getCoord(yValues[i], max, spacingBottom, height), getCoord(i+1, yValues.length-1, spacingLeft, width), height-getCoord(yValues[i+1], max, spacingBottom, height))
+    }
+
+    function getCoord(value, maxValue, spacing, maxDisplay) {
+      return value/maxValue*(maxDisplay-spacing)+spacing
+    }
+
+    function line(x1, y1, x2, y2) {
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+}
+</script>
