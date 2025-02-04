@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interrogazione WP REST API</title>
+</head>
+<body>
+    <h1>Risultati dalla WP REST API</h1>
+    <button onclick="getPosts()">Carica Post</button>
+    <pre id="output"></pre>
+
+    <script>
+        function getPosts() {
+            // URL dell'API REST di WordPress (sostituiscilo con il tuo dominio WP)
+            let url = "https://demo.wp-api.org/wp-json/wp/v2/posts";
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        document.getElementById("output").textContent = JSON.stringify(JSON.parse(xhr.responseText), null, 2);
+                    } else {
+                        document.getElementById("output").textContent = "Errore: " + xhr.status;
+                    }
+                }
+            };
+
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
