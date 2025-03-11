@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migranti in Italia: Storie, Dati e Cause</title>
+    <style>
+       
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url(sfondo);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        header {
+            background-color: rgba(0, 119, 182, 0.8);
+            color: white;
+            text-align: center;
+            padding: 20px 10px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            color: #ffdd57;
+        }
+
+        section {
+            padding: 100px 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 100px auto;
+            background: rgba(255, 255, 255, 0.85); 
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        section h2 {
+            color: #0077b6;
+        }
+
+        section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        section ul li {
+            background: #0077b6;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out;
+        }
+
+        section ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+        }
+
+        section ul li:hover {
+            background: #005f8a;
+        }
+
+        footer {
+            background-color: rgba(0, 119, 182, 0.8);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Migranti in Italia: Storie, Dati e Cause</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#cause">Cause</a></li>
+                <li><a href="#dati">Dati</a></li>
+                <li><a href="#storie">Storie</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h2>Benvenuti</h2>
+        <p>L'immigrazione in Italia è un fenomeno complesso che coinvolge migliaia di persone ogni anno. Questo sito esplora le cause, i numeri e le storie di chi arriva nel nostro Paese in cerca di un futuro migliore.</p>
+		<img src="homeI2.jpg" alt="immig" class="imm">
+    </section>
+
+    <section id="cause">
+        <h2>Cause dell'Immigrazione</h2>
+        <ul>
+            <li><a href="https://jump.rui.it/life-skills/global-mindset/le-guerre-al-tempo-del-virus-la-situazione-nei-conflitti-in-libia-siria-afghanistan/" target="_blank">Conflitti nei paesi di origine (Siria, Afghanistan, Libia)</a></li>
+            <li><a href="https://adozioneadistanza.actionaid.it/magazine/poverta-in-africa/" target="_blank">Condizioni economiche difficili in Africa e Asia</a></li>
+            <li><a href="https://www.unicef.it/media/a-causa-di-siccita-e-malnutrizione-nel-corno-d-africa-e-nel-sahel-sono-milioni-i-bambini-a-rischio/" target="_blank">Cambiamenti climatici e siccità in Sahel e Corno d’Africa</a></li>
+            <li><a href="https://www.meltingpot.org/2022/03/migrazione-e-sicurezza-lavoro-e-diseguaglianza/" target="_blank">Ricerca di lavoro e sicurezza in Italia</a></li>
+        </ul>
+		<img src="causeI1.jpg" alt="immig" class="imm">
+    </section>
+
+    <section id="dati">
+        <h2>Dati e Statistiche</h2>
+        <p>Oltre <strong>5 milioni</strong> di migranti regolari vivono in Italia.</p>
+        <p>Le principali comunità sono <strong>rumena, albanese, marocchina e cinese</strong>.</p>
+        <p>Nel <strong>2023</strong>, più di <strong>150.000 persone</strong> sono arrivate via mare.</p>
+		<img src="datiI1.jpg" alt="immig" class="imm" style="width: 700px; height: auto;">
+    </section>
+
+    <section id="storie">
+        <h2>Storie di Migranti</h2>
+        <p><a href="https://stranieriinitalia.it/attualita/immigrati-racconto-fatima/" target="_blank"><strong>Fatima</strong></a>, dalla Nigeria, ha trovato lavoro in un'azienda agricola in Sicilia.</p>
+        <p><a href="https://www.ilsole24ore.com/art/dai-muratori-sarti-mestieri-dove-stranieri-sono-piu-italiani-AF24qpcC" target="_blank"><strong>Youssef</strong></a>, dalla Tunisia, lavora come muratore a Milano dopo aver attraversato il Mediterraneo.</p>
+        <p><a href="https://stranieriinitalia.it/attualita/decreto-flussi-lappello-delle-famiglie-badanti-colf-e-baby-sitter-esclusi-dal-provvedimento/" target="_blank"><strong>Olga</strong></a>, dall’Ucraina, si è trasferita a Roma per lavorare come badante.</p>
+		<img src="stoI1.jpg" alt="immig" class="imm">
+    </section>
+
+    <footer>
+        <p>&copy; Andrea - Martino</p>
+    </footer>
+
+</body>
+</html>
