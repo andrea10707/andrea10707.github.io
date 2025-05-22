@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vetrina - iPhone</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .carrello-icon {
+        font-size: 2.2em;
+        color: #007bff;
+        cursor: pointer;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #eef2f3;
+        margin: 0;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 30px;
+      }
+
+      .prodotto {
+        max-width: 350px;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        text-align: center;
+        padding: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      .prodotto:hover {
+        transform: scale(1.02);
+      }
+
+      .prodotto img {
+        width: 100%;
+        height: auto;
+        max-height: 220px;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+
+      .nome {
+        font-size: 1.8em;
+        font-weight: bold;
+        margin: 15px 0 5px;
+        color: #222;
+      }
+
+      .descrizione,
+      .prezzo {
+        font-size: 1.2em;
+        margin: 5px 0;
+        color: #555;
+      }
+
+      .info {
+        margin-top: 15px;
+        font-size: 1em;
+        color: #666;
+      }
+
+      .link a {
+        display: inline-block;
+        margin-top: 8px;
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .link a:hover {
+        text-decoration: underline;
+      }
+
+      .btn {
+        margin-top: 20px;
+        padding: 12px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="Carrello.html" class="carrello-icon" title="Vai al carrello">
+      <i class="fas fa-shopping-cart"></i>
+    </a>
+    <h1>Vetrina Prodotto: iPhone</h1>
+    <div class="prodotto">
+      <img src="iphone.jpg" alt="Immagine iPhone" />
+      <div class="nome">iPhone</div>
+      <div class="descrizione">
+        <ul style="list-style: none; padding: 0; text-align: left">
+          <li><strong>Marchio:</strong> Apple</li>
+          <li><strong>Sistema operativo:</strong> iOS</li>
+          <li><strong>RAM:</strong> 8 GB</li>
+          <li><strong>Memoria interna:</strong> 128 GB</li>
+          <li><strong>Schermo:</strong> 6,1 Pollici</li>
+          <li><strong>Risoluzione:</strong> 2556x1179</li>
+          <li><strong>Refresh rate:</strong> 60 Hz</li>
+          <li><strong>Modello:</strong> iPhone 16</li>
+          <li><strong>Compatibilità reti:</strong> Tutti i vettori</li>
+          <li><strong>Tecnologia cellulare:</strong> 5G</li>
+        </ul>
+      </div>
+      <div class="prezzo">Prezzo: €769</div>
+      <button class="btn" onclick="aggiungiAlCarrello()">
+        Aggiungi al carrello
+      </button>
+    </div>
+
+    <script>
+      function aggiungiAlCarrello() {
+        const prodotto = {
+          id: 1,
+          nome: "iPhone",
+          descrizione: "Capacità: 16 GB",
+          prezzo: 769,
+          quantita: 1,
+        };
+
+        let carrello = JSON.parse(localStorage.getItem("carrello")) || [];
+        const indice = carrello.findIndex((item) => item.id === prodotto.id);
+
+        if (indice !== -1) {
+          carrello[indice].quantita += 1;
+        } else {
+          carrello.push(prodotto);
+        }
+
+        localStorage.setItem("carrello", JSON.stringify(carrello));
+        alert("Prodotto aggiunto al carrello!");
+      }
+    </script>
+  </body>
+</html>

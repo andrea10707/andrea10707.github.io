@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login con File</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Login</h2>
+
+    <input type="file" id="fileInput" accept=".txt" />
+    <input type="text" id="nome" placeholder="Nome" required>
+    <input type="text" id="cognome" placeholder="Cognome" required>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+
+    <button onclick="login()">Accedi</button>
+
+    <p class="error-message" id="error-message" style="display: none;">Credenziali errate o file non caricato.</p>
+  </div>
+
+  <script>
+    let credenzialiFile = {};
+
+    document.getElementById("fileInput").addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const testo = e.target.result;
+
+          // Parsing delle righe
+          const righe = testo.split('\n');
+          righe.forEach(riga => {
+            const [chiave, valore] = riga.split(':');
+            if (chiave && valore) {
+              credenzialiFile[chiave.trim().toLowerCase()] = valore.trim();
+            }
+          });
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    function login() {
+      const nome = document.getElementById("nome").value.trim();
+      const cognome = document.getElementById("cognome").value.trim();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (
+        credenzialiFile["nome"] === nome &&
+        credenzialiFile["cognome"] === cognome &&
+        credenzialiFile["username"] === username &&
+        credenzialiFile["password"] === password
+      ) {
+        window.location.href = "Menu.html";
+      } else {
+        document.getElementById("error-message").style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>

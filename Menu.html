@@ -1,0 +1,131 @@
+<<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pagina Prodotti</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        padding: 20px 0;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 20px;
+        height: calc(100vh - 80px); /* meno il titolo */
+        padding: 20px;
+      }
+
+      .product-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-card img {
+        width: 100%;
+        height: 60%;
+        object-fit: cover;
+      }
+
+      .product-info {
+        padding: 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .product-name {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .product-price {
+        color: #4caf50;
+        font-size: 18px;
+      }
+
+      @media (max-width: 768px) {
+        .product-grid {
+          grid-template-columns: 1fr;
+          grid-template-rows: repeat(4, 1fr);
+          height: auto;
+        }
+
+        .product-card {
+          height: auto;
+        }
+
+        .product-card img {
+          height: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Prodotti Disponibili</h1>
+
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="iphone.jpg" alt="iPhone" />
+        <div class="product-info">
+          <div class="product-name">
+            <a href="ProdottoSingolo.html">iPhone</a>
+          </div>
+          <div class="product-price">769€</div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="panda.jpg" alt="Panda" />
+        <div class="product-info">
+          <div class="product-name">
+            <a href="ProdottoSingolo2.html"> Macchina - Panda</a>
+          </div>
+          <div class="product-price">9.990€</div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="computer.jpg" alt="ASUS TUF" />
+        <div class="product-info">
+          <div class="product-name">
+            <a href="ProdottoSingolo3.html">Computer ASUS TUF A15</a>
+          </div>
+          <div class="product-price">990,99€</div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="casco.jpg" alt="Casco Moto" />
+        <div class="product-info">
+          <div class="product-name">
+            <a href="ProdottoSingolo4.html">Casco da Moto</a>
+          </div>
+          <div class="product-price">219,90€</div>
+        </div>
+      </div>
+    </div>
+    <script></script>
+  </body>
+</html>

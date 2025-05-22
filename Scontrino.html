@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scontrino</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff;
+      color: #333;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .scontrino {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      background: #f9f9f9;
+    }
+
+    .prodotto {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dotted #ccc;
+      padding: 8px 0;
+    }
+
+    .prodotto:last-child {
+      border-bottom: none;
+    }
+
+    .totale {
+      margin-top: 20px;
+      font-size: 1.3em;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .btn-stampa {
+      margin-top: 30px;
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn-stampa:hover {
+      background-color: #0056b3;
+    }
+
+    @media print {
+      .btn-stampa {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Scontrino</h1>
+  <div class="scontrino" id="contenutoScontrino">
+    <!-- Prodotti e totale inseriti via JavaScript -->
+  </div>
+
+  <button class="btn-stampa" onclick="window.print()">🖨️ Stampa Scontrino</button>
+
+  <script>
+    function mostraScontrino() {
+      const contenitore = document.getElementById('contenutoScontrino');
+      const carrello = JSON.parse(localStorage.getItem('carrello')) || [];
+
+      if (carrello.length === 0) {
+        contenitore.innerHTML = '<p>Il carrello è vuoto.</p>';
+        return;
+      }
+
+      let totale = 0;
+      let html = '';
+
+      carrello.forEach(prodotto => {
+        const subtotale = prodotto.prezzo * prodotto.quantita;
+        totale += subtotale;
+
+        html += `
+          <div class="prodotto">
+            <span>${prodotto.nome} × ${prodotto.quantita}</span>
+            <span>€${subtotale.toFixed(2)}</span>
+          </div>
+        `;
+      });
+
+      html += `<div class="totale">Totale: €${totale.toFixed(2)}</div>`;
+      contenitore.innerHTML = html;
+    }
+
+    mostraScontrino();
+  </script>
+</body>
+</html>

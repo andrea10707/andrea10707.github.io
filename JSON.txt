@@ -1,0 +1,10 @@
+Nome: Pina
+Cognome: Colada
+Username: ILovePizzaBaghels23
+Password: BevereE'Unbaka20014
+
+prodotti:
+	-Iphone,16,*foto*,769 
+	-Macchina,panda,*foto*,9990 
+	-Computer,asus TUF Gaming A15,*foto*,990,99
+	-Casco,moto,*foto*,201,48 

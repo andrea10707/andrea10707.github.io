@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vetrina - Panda fiat</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+     .carrello-icon {
+        font-size: 2.2em;
+        color: #007bff;
+        cursor: pointer;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #eef2f3;
+        margin: 0;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 30px;
+      }
+
+      .prodotto {
+        display: flex;
+        max-width: 800px;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+
+      .prodotto:hover {
+        transform: scale(1.02);
+      }
+
+      .prodotto img {
+        width: 300px;
+        height: auto;
+        object-fit: cover;
+        border-left: 1px solid #ddd;
+      }
+
+      .dettagli {
+        flex: 1;
+        padding: 20px;
+        text-align: left;
+      }
+
+      .nome {
+        font-size: 1.8em;
+        font-weight: bold;
+        margin: 0 0 10px;
+        color: #222;
+      }
+
+      .descrizione {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+        color: #555;
+      }
+
+      .prezzo {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-top: 15px;
+        color: #007bff;
+      }
+
+      .btn {
+        margin-top: 20px;
+        padding: 12px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="Carrello.html" class="carrello-icon" title="Vai al carrello">
+      <i class="fas fa-shopping-cart"></i>
+    </a>
+    <h1>Vetrina Prodotto: Panda</h1>
+    <div class="prodotto">
+      <img src="panda.jpg" alt="Immagine iPhone" />
+      <div class="nome">Panda</div>
+      <div class="descrizione">
+        <ul>
+          <li><strong>Motore:</strong> 1.0 HYBRID 70 CV</li>
+          <li><strong>Emissioni di CO2 ciclo misto (G/KM):</strong> 113 - 114 / 116-117 Versione Cross</li>
+          <li><strong>Tipo trazione:</strong> anteriore</li>
+          <li><strong>Potenza max (CV):</strong> 70</li>
+          <li><strong>Consumo di carburante ciclo misto (L/100KM):</strong> 5,0 / 5,1 Versione Cross</li>
+          <li><strong>Cambio:</strong> Manuale</li>
+          <li><strong>Tipo di alimentazione:</strong> Mild Hybrid</li>
+          <li><strong>Numero di marce:</strong> 6</li>
+        </ul>
+      </div>
+      <div class="prezzo">Prezzo: €9990</div>
+      <button class="btn" onclick="aggiungiAlCarrello()">
+        Aggiungi al carrello
+      </button>
+    </div>
+
+    <script>
+      function aggiungiAlCarrello() {
+        const prodotto = {
+          id: 2,
+          nome: "Panda",
+          descrizione: "Macchina",
+          prezzo: 9990,
+          quantita: 1,
+        };
+
+        let carrello = JSON.parse(localStorage.getItem("carrello")) || [];
+        const indice = carrello.findIndex((item) => item.id === prodotto.id);
+
+        if (indice !== -1) {
+          carrello[indice].quantita += 1;
+        } else {
+          carrello.push(prodotto);
+        }
+
+        localStorage.setItem("carrello", JSON.stringify(carrello));
+        alert("Prodotto aggiunto al carrello!");
+      }
+    </script>
+  </body>
+</html>

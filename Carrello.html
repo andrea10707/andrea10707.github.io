@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrello</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f6f8;
+        margin: 0;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .carrello {
+        width: 100%;
+        max-width: 600px;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      .prodotto {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+      }
+
+      .prodotto:last-child {
+        border-bottom: none;
+      }
+
+      .prodotto-dettagli {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .prodotto-nome {
+        font-weight: bold;
+        color: #222;
+      }
+
+      .prodotto-prezzo {
+        color: #007bff;
+      }
+
+      .rimuovi {
+        background: none;
+        border: none;
+        color: #dc3545;
+        font-size: 1.2em;
+        cursor: pointer;
+        padding: 0 10px;
+      }
+
+      .rimuovi:hover {
+        color: #b02a37;
+      }
+
+      .bottoni {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+      }
+
+      .btn {
+        padding: 12px 18px;
+        font-size: 1em;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-menu {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .btn-menu:hover {
+        background-color: #5a6268;
+      }
+
+      .btn-scontrino {
+        background-color: #28a745;
+        color: white;
+      }
+
+      .btn-scontrino:hover {
+        background-color: #218838;
+      }
+
+      .vuoto {
+        text-align: center;
+        color: #666;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Il tuo carrello</h1>
+    <div class="carrello" id="listaCarrello">
+      <!-- Prodotti caricati dinamicamente -->
+    </div>
+
+    <div class="bottoni">
+      <button class="btn btn-menu" onclick="window.location.href='Menu.html'">
+        🔙 Torna ai prodotti
+      </button>
+      <button
+        class="btn btn-scontrino"
+        onclick="window.location.href='scontrino.html'"
+      >
+        🧾 Vai allo scontrino
+      </button>
+    </div>
+
+    <script>
+      function caricaCarrello() {
+        const lista = document.getElementById("listaCarrello");
+        lista.innerHTML = "";
+        const carrello = JSON.parse(localStorage.getItem("carrello")) || [];
+
+        if (carrello.length === 0) {
+          lista.innerHTML = '<p class="vuoto">Il carrello è vuoto.</p>';
+          return;
+        }
+
+        carrello.forEach((prodotto, index) => {
+          const item = document.createElement("div");
+          item.classList.add("prodotto");
+          item.innerHTML = `
+          <div class="prodotto-dettagli">
+            <div class="prodotto-nome">${prodotto.nome}</div>
+            <div>Quantità: ${prodotto.quantita}</div>
+            <div class="prodotto-prezzo">€${(
+              prodotto.prezzo * prodotto.quantita
+            ).toFixed(2)}</div>
+          </div>
+          <button class="rimuovi" onclick="rimuoviProdotto(${index})">❌</button>
+        `;
+          lista.appendChild(item);
+        });
+      }
+
+      function rimuoviProdotto(indice) {
+        let carrello = JSON.parse(localStorage.getItem("carrello")) || [];
+        carrello.splice(indice, 1);
+        localStorage.setItem("carrello", JSON.stringify(carrello));
+        caricaCarrello();
+      }
+
+      // Carica all'avvio
+      caricaCarrello();
+    </script>
+  </body>
+</html>
