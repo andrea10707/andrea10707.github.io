@@ -9,13 +9,17 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      .carrello-icon {
+       .carrello-icon {
         font-size: 2.2em;
         color: #007bff;
         cursor: pointer;
         text-decoration: none;
         transition: color 0.3s ease;
+        position: absolute;
+        top: 20px;
+        right: 20px;
       }
+
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background-color: #eef2f3;
@@ -24,6 +28,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
       }
 
       h1 {
@@ -32,14 +37,13 @@
       }
 
       .prodotto {
-        max-width: 350px;
+        display: flex;
+        max-width: 800px;
         width: 100%;
         background-color: #fff;
         border-radius: 16px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         overflow: hidden;
-        text-align: center;
-        padding: 20px;
         transition: transform 0.3s ease;
       }
 
@@ -48,43 +52,36 @@
       }
 
       .prodotto img {
-        width: 100%;
+        width: 300px;
         height: auto;
-        max-height: 220px;
         object-fit: cover;
-        border-radius: 12px;
+        border-left: 1px solid #ddd;
+      }
+
+      .dettagli {
+        flex: 1;
+        padding: 20px;
+        text-align: left;
       }
 
       .nome {
         font-size: 1.8em;
         font-weight: bold;
-        margin: 15px 0 5px;
+        margin: 0 0 10px;
         color: #222;
       }
 
-      .descrizione,
-      .prezzo {
-        font-size: 1.2em;
-        margin: 5px 0;
+      .descrizione {
+        font-size: 1.1em;
+        margin-bottom: 10px;
         color: #555;
       }
 
-      .info {
+      .prezzo {
+        font-size: 1.2em;
+        font-weight: bold;
         margin-top: 15px;
-        font-size: 1em;
-        color: #666;
-      }
-
-      .link a {
-        display: inline-block;
-        margin-top: 8px;
         color: #007bff;
-        text-decoration: none;
-        font-weight: 500;
-      }
-
-      .link a:hover {
-        text-decoration: underline;
       }
 
       .btn {
