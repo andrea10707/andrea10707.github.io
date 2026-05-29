@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pokédex Pro Definitivo</title>
+
+<style>
+body { margin:0; font-family:Arial; background:#f4f6f8; }
+
+header {
+    background:#ffcb05;
+    padding:20px;
+    text-align:center;
+    font-size:26px;
+    font-weight:bold;
+    color:#2a75bb;
+}
+
+/* CONTROLLI */
+.controls {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    padding:10px;
+    justify-content:center;
+}
+
+input, select {
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+button {
+    padding:10px 15px;
+    border:none;
+    background:#2a75bb;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* GRID */
+.grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap:10px;
+    padding:20px;
+}
+
+.card {
+    background:white;
+    padding:10px;
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    box-shadow:0 1px 5px rgba(0,0,0,0.1);
+}
+
+.card img { width:90px; }
+
+.num { font-weight:bold; color:#555; }
+
+/* TYPES */
+.type {
+    display:inline-block;
+    padding:3px 6px;
+    border-radius:10px;
+    font-size:11px;
+    margin:2px;
+    color:white;
+}
+
+.fire { background:#F08030; }
+.water { background:#6890F0; }
+.grass { background:#78C850; }
+.electric { background:#F8D030; color:black; }
+.bug { background:#A8B820; }
+.steel { background:#B8B8D0; }
+.rock { background:#B8A038; }
+.ghost { background:#705898; }
+.psychic { background:#F85888; }
+.ice { background:#98D8D8; }
+.dragon { background:#7038F8; }
+.dark { background:#705848; }
+.fairy { background:#EE99AC; }
+.normal { background:#A8A878; }
+.fighting { background:#C03028; }
+.poison { background:#A040A0; }
+.ground { background:#E0C068; }
+.flying { background:#A890F0; }
+
+/* PAGINATION */
+.pagination {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:5px;
+    padding:10px;
+}
+
+.page {
+    padding:8px 12px;
+    background:white;
+    border:1px solid #ccc;
+    cursor:pointer;
+}
+
+.page.active {
+    background:#2a75bb;
+    color:white;
+}
+
+/* MODAL */
+.modal {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content {
+    background:white;
+    width:400px;
+    border-radius:12px;
+    padding:15px;
+    position:relative;
+    text-align:center;
+}
+
+.close {
+    position:absolute;
+    top:10px;
+    right:15px;
+    cursor:pointer;
+}
+
+/* STAT BARS */
+.stat {
+    margin:8px 0;
+    text-align:left;
+    font-size:13px;
+}
+
+.bar-bg {
+    background:#e0e0e0;
+    height:10px;
+    border-radius:6px;
+    overflow:hidden;
+    margin-top:4px;
+}
+
+.bar-hp { background: linear-gradient(90deg,#ff5959,#ff2d2d); height:10px; }
+.bar-attack { background: linear-gradient(90deg,#f5ac78,#f08a4b); height:10px; }
+.bar-defense { background: linear-gradient(90deg,#fae078,#f2c94c); height:10px; }
+.bar-spa { background: linear-gradient(90deg,#9db7f5,#5b8cff); height:10px; }
+.bar-spd { background: linear-gradient(90deg,#a7db8d,#4caf50); height:10px; }
+.bar-speed { background: linear-gradient(90deg,#fa92b2,#ff4d88); height:10px; }
+
+.shiny-global {
+    display:flex;
+    justify-content:center;
+    margin:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>⚡ Pokédex Pro Definitivo</header>
+
+<div class="shiny-global">
+    <button onclick="toggleShiny()">🔄 Shiny Mode</button>
+</div>
+
+<div class="controls">
+    <input id="search" placeholder="Cerca Pokémon..."/>
+
+    <select id="typeFilter">
+        <option value="all">Tutti i tipi</option>
+    </select>
+
+    <button onclick="apply()">Filtra</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="pagination" id="pagination"></div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <div class="close" onclick="closeModal()">✖</div>
+        <div id="modalData"></div>
+    </div>
+</div>
+
+<script>
+
+let allPokemon = [];
+let filtered = [];
+let currentPage = 1;
+const perPage = 24;
+let shinyMode = false;
+
+/* TYPES */
+async function loadTypes() {
+    const res = await fetch("https://pokeapi.co/api/v2/type");
+    const data = await res.json();
+
+    const sel = document.getElementById("typeFilter");
+
+    data.results.forEach(t => {
+        const opt = document.createElement("option");
+        opt.value = t.name;
+        opt.textContent = t.name;
+        sel.appendChild(opt);
+    });
+}
+
+/* 🔥 LOAD 1302 POKEMON + FILTRO MIRAIDON/KORAIDON */
+async function loadPokemon() {
+
+    const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1302");
+    const data = await res.json();
+
+    const list = data.results;
+
+    const batchSize = 100;
+    let index = 0;
+    let temp = [];
+
+    async function loadBatch() {
+        const batch = list.slice(index, index + batchSize);
+
+        const details = await Promise.all(
+            batch.map(p => fetch(p.url).then(r => r.json()))
+        );
+
+        temp = temp.concat(
+            details
+                .filter(p => {
+                    const name = p.name.toLowerCase();
+                    return !name.includes("miraidon") && !name.includes("koraidon");
+                })
+                .map(p => ({
+                    id: p.id,
+                    name: p.name,
+                    sprite: p.sprites.front_default,
+                    shiny: p.sprites.front_shiny,
+                    types: p.types.map(t => t.type.name),
+                    stats: p.stats,
+                    speciesUrl: p.species.url
+                }))
+        );
+
+        index += batchSize;
+
+        if (index < list.length) {
+            setTimeout(loadBatch, 80);
+        } else {
+            allPokemon = temp;
+            filtered = allPokemon;
+            render();
+        }
+    }
+
+    loadBatch();
+}
+
+/* GRID */
+function render() {
+    const grid = document.getElementById("grid");
+    const start = (currentPage - 1) * perPage;
+    const page = filtered.slice(start, start + perPage);
+
+    grid.innerHTML = "";
+
+    page.forEach(p => {
+        grid.innerHTML += `
+            <div class="card" onclick="openModal(${p.id})">
+                <div class="num">#${p.id}</div>
+                <img src="${shinyMode ? p.shiny : p.sprite}">
+                <div>${p.name}</div>
+                <div>
+                    ${p.types.map(t => `<span class="type ${t}">${t}</span>`).join("")}
+                </div>
+            </div>
+        `;
+    });
+
+    renderPagination();
+}
+
+/* PAGINATION */
+function renderPagination() {
+    const pag = document.getElementById("pagination");
+    pag.innerHTML = "";
+
+    const total = Math.ceil(filtered.length / perPage);
+
+    for (let i=1;i<=total;i++) {
+        pag.innerHTML += `
+            <div class="page ${i===currentPage?'active':''}" onclick="go(${i})">
+                ${i}
+            </div>
+        `;
+    }
+}
+
+function go(p) {
+    currentPage = p;
+    render();
+}
+
+/* FILTER */
+function apply() {
+    const name = document.getElementById("search").value.toLowerCase();
+    const type = document.getElementById("typeFilter").value;
+
+    filtered = allPokemon;
+
+    if (name) filtered = filtered.filter(p => p.name.includes(name));
+    if (type !== "all") filtered = filtered.filter(p => p.types.includes(type));
+
+    currentPage = 1;
+    render();
+}
+
+/* SHINY */
+function toggleShiny() {
+    shinyMode = !shinyMode;
+    render();
+}
+
+/* MODAL + EVOLUTIONS */
+async function openModal(id) {
+    const p = allPokemon.find(x => x.id === id);
+
+    const species = await fetch(p.speciesUrl).then(r => r.json());
+    const evoData = await fetch(species.evolution_chain.url).then(r => r.json());
+
+    let evoList = [];
+
+    function parse(chain) {
+        evoList.push(chain.species.name);
+        if (chain.evolves_to.length > 0) {
+            chain.evolves_to.forEach(e => parse(e));
+        }
+    }
+
+    parse(evoData.chain);
+
+    const bar = (name, value, cls) => `
+        <div class="stat">
+            ${name}: ${value}
+            <div class="bar-bg">
+                <div class="${cls}" style="width:${Math.min(value,200)/2}%"></div>
+            </div>
+        </div>
+    `;
+
+    document.getElementById("modalData").innerHTML = `
+        <h2>#${p.id} ${p.name}</h2>
+
+        <img src="${shinyMode ? p.shiny : p.sprite}" width="120">
+
+        <div>
+            ${p.types.map(t => `<span class="type ${t}">${t}</span>`).join("")}
+        </div>
+
+        <h3>Stats</h3>
+        ${bar("HP", p.stats[0].base_stat, "bar-hp")}
+        ${bar("Attack", p.stats[1].base_stat, "bar-attack")}
+        ${bar("Defense", p.stats[2].base_stat, "bar-defense")}
+        ${bar("Sp. Attack", p.stats[3].base_stat, "bar-spa")}
+        ${bar("Sp. Defense", p.stats[4].base_stat, "bar-spd")}
+        ${bar("Speed", p.stats[5].base_stat, "bar-speed")}
+
+        <h3>Evoluzioni</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+            ${evoList.map(e => `
+                <div style="padding:5px 10px;background:#eee;border-radius:6px;">
+                    ${e}
+                </div>
+            `).join("")}
+        </div>
+    `;
+
+    document.getElementById("modal").style.display="flex";
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display="none";
+}
+
+window.onclick = e => {
+    if(e.target.id==="modal") closeModal();
+};
+
+/* INIT */
+loadTypes();
+loadPokemon();
+
+</script>
+
+</body>
+</html>
